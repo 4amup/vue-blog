@@ -3,6 +3,13 @@
 import Vue from 'vue'
 import VueProgressBar from 'vue-progressbar'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI)
+
+import 'vue-awesome/icons'
+
+import Icon from 'vue-awesome/components/Icon'
 import App from './App'
 import router from './router'
 import store from './store'
