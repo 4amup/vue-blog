@@ -1,18 +1,18 @@
 <template>
   <div class="container">
-    <el-menu :router="true" default-active="/" class="el-menu" mode="horizontal" @select="handleSelect">
+    <el-menu :router="true" :default-active="active" class="el-menu" mode="horizontal" @select="handleSelect" active-text-color="#409EFF">
       <el-menu-item index="/">番薯</el-menu-item>
       <el-menu-item index="/list"><i class="fa fa-flag" aria-hidden="true"></i> 探索</el-menu-item>
 
-        <el-menu-item index="4" class="right"><i class="fa fa-user-o" aria-hidden="true"></i> 注册</el-menu-item>
-        <el-menu-item index="3" class="right"><i class="fa fa-key" aria-hidden="true"></i> 登陆</el-menu-item>
-        <!-- <el-menu-item index="6" class="right"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</el-menu-item> -->
-        <!-- <el-submenu index="5" class="right">
-          <template slot="title">用户</template>
-          <el-menu-item index="5-1">个人中心</el-menu-item>
-          <el-menu-item index="5-2">发布文章</el-menu-item>
-          <el-menu-item index="5-3">消息</el-menu-item>
-        </el-submenu> -->
+      <el-menu-item index="/signup" class="right"><i class="fa fa-user-o" aria-hidden="true"></i> 注册</el-menu-item>
+      <el-menu-item index="3" class="right"><i class="fa fa-key" aria-hidden="true"></i> 登陆</el-menu-item>
+      <!-- <el-menu-item index="6" class="right"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</el-menu-item> -->
+      <!-- <el-submenu index="5" class="right">
+        <template slot="title">用户</template>
+        <el-menu-item index="5-1">个人中心</el-menu-item>
+        <el-menu-item index="5-2">发布文章</el-menu-item>
+        <el-menu-item index="5-3">消息</el-menu-item>
+      </el-submenu> -->
 
     </el-menu>
   </div>
@@ -26,14 +26,20 @@ export default {
   name: 'Header',
   data() {
     return {
-      active: '0'
+      active: '/', // 当前激活的菜单
     };
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     }
-  }
+  },
+  created() { // 添加钩子函数，解决default-active的问题
+    this.active = this.$route.path; // 解决刷新不高亮
+    this.$router.afterEach((to,from) => {
+      this.active = to.path; // 解决编程式切换路由不高亮
+    });
+  },
 };
 </script>
 
