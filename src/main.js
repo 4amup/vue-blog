@@ -43,6 +43,12 @@ const options = {
 
 Vue.use(VueProgressBar, options)
 
+const user = api.SDK.User.current()
+
+if (user) {
+  store.commit('setUser', user);
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
