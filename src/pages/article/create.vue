@@ -9,7 +9,7 @@
           value-key="id"
           placeholder="请选择文章分类">
           <el-option
-            v-for="cate in categorys"
+            v-for="cate in categories"
             :key="cate.objectId"
             :label="cate.get('name')"
             :value="cate">
@@ -49,7 +49,7 @@ export default {
 
   data () {
     return {
-      categorys: [],
+      categories: [],
       form: {
         category: null,
         title: '',
@@ -100,9 +100,9 @@ export default {
     },
     getCategory(){
       const cq = new this.$api.SDK.Query('Category');
-      cq.find().then((categorys) => {
-        this.categorys = categorys;
-        this.form.category = categorys[0];
+      cq.find().then((categories) => {
+        this.categories = categories;
+        this.form.category = categories[0];
       }).catch(console.error)
     },
 
