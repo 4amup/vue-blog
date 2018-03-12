@@ -5,6 +5,7 @@ import List from '@/pages/List'
 import SignUp from '@/pages/signUp'
 import SignIn from '@/pages/signIn'
 import ArticleCreate from '@/pages/article/create'
+import ArticleList from '@/pages/List'
 
 Vue.use(Router)
 
@@ -24,11 +25,6 @@ export default new Router({
       }
     },
     {
-      path: '/list',
-      name: 'List',
-      component: List
-    },
-    {
       path: '/signup',
       name: 'SignUp',
       component: SignUp
@@ -37,6 +33,11 @@ export default new Router({
       path: '/signin',
       name: 'SignIn',
       component: SignIn
-    }
+    },
+    {
+      path: '/article',
+      name: 'ArticleList',
+      component: ArticleList
+    },
   ]
 })
