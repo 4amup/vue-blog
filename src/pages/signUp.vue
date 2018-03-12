@@ -18,7 +18,11 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">提交</el-button>
+          <el-button
+          type="primary"
+          @click="submitForm('form')"
+          @keyup="submitForm('form')"
+          >提交</el-button>
           <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -80,6 +84,9 @@ export default {
         ]
       }
     };
+  },
+  mounted () {
+    this.$Progress.finish()
   },
   methods: {
     submitForm(formName) {

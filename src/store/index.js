@@ -7,6 +7,12 @@ const store = new Vuex.Store({
   state: {
     user: null
   },
+  getters: {
+    uid({user}) {
+      if (user) return user.id;
+      return null;
+    }
+  },
   mutations: {
     setUser (state, user) {
       state.user = user
