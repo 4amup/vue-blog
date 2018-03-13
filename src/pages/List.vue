@@ -81,11 +81,9 @@ export default {
     },
     getMyArticles(){
       this.title = "我的文章";
-      const q = this.query();
+      var user = this.$api.SDK.Object.createWithoutData('Author', this.user.id);
+      const q = this.query().equalTo('author', user);
       this.setArticles(q);
-    },
-    getCategoryObj(id){
-      return this.$api.SDK.Object.createWithoutData('Category', id);
     },
     // cid => category_id
     getCategoryArticle(cid){
@@ -93,6 +91,10 @@ export default {
       const q = this.query();
       q.equalTo('category', cateObj);
       this.setArticles(q);
+    },
+
+    getCategoryObj(id){
+      return this.$api.SDK.Object.createWithoutData('Category', id);
     },
   }
 };

@@ -52,6 +52,7 @@ export default {
       this.exit() // 调用mapActions映射的this.exit()，这个方法映射自this.$store.dispatch('exit')`
       this.$api.SDK.User.logOut() // SDK 的退出
       this.$message.success('成功退出')
+      this.$router.replace('/article/?type=all')
     }
   },
 };
