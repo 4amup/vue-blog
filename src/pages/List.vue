@@ -89,8 +89,7 @@ export default {
     },
     getMyArticles(){
       this.title = "我的文章";
-      var user = this.$api.SDK.Object.createWithoutData('Author', this.user.id);
-      const q = this.query().equalTo('author', user);
+      const q = this.query().equalTo('author', this.user);
       this.setArticles(q);
     },
     // cid => category_id

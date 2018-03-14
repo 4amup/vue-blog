@@ -140,6 +140,22 @@ export default {
       article.save().then((article) => {
         console.log(article);
         const message =  `文章《${article.get('title')}》发布成功`;
+
+        // 同步到朋友圈状态
+        const status = new this.$api.SDK.Status();
+        status.inboxType = 'friend';
+        status.set('title', article.get('title'));
+        status.set('type', 'create_article');
+        status.set('article', article);
+        this.$api.SDK.Status.sendStatusToFollowers(status).then((status) => {
+          //发布状态成功，返回状态信息
+          console.dir(status);
+        }, (err) => {
+          //发布失败
+          console.dir(err);
+        });
+        
+        // 前端显示创建成功消息
         this.$message({message, type: 'success'})
         this.$router.replace('/article?type=all');
       }).catch(console.error);

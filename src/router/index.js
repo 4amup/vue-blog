@@ -11,6 +11,7 @@ import ArticleEdit from '@/pages/article/edit'
 import User from '@/pages/user/index'
 import Followee from '@/pages/user/myFollowee'
 import Follower from '@/pages/user/myFollower'
+import Friend from '@/pages/user/friend'
 
 Vue.use(Router)
 
@@ -86,5 +87,13 @@ export default new Router({
        needLogin: true
       }
     },
+    {
+      path: '/friend',
+      name: 'Friend',
+      component: Friend,
+      meta: {
+        needLogin: true
+      }
+    }
   ]
 })
