@@ -4,6 +4,7 @@
 
     <hr>
     <div class="oprator" v-if="user">
+      <!-- 如果登录用户不等于当前的用户页面，则显示关注按钮 -->
       <button v-if="user.id != current_user.id" @click="toggleFollow">{{ followed? '取消关注':'关注' }}该用户</button>
     </div>
     <ul>
@@ -27,7 +28,7 @@ export default {
     return {
       current_user: null,
       articles: null,
-      followed: false,
+      followed: false, //当前显示用户是否被登录用户关注
       id,
     };
   },
@@ -74,12 +75,13 @@ export default {
     },
     checkFollowed(){
       const id = this.id;
-      const q = this.user.followeeQuery();
+      const q = this.user.followeeQuery(); // 查询当前登录用户的关注对象
       q.include('followee');
       q.find().then(followee => {
         if (followee.length) {
+          // some() 方法会依次执行数组的每个元素：如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。
           if (followee.some(f => f.id == id)) {
-            this.followed = true;
+            this.followed = true; // 如果登录用户关注了当前页面的用户，则返回followed=true
           }
           return;
         }
