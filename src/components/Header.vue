@@ -6,7 +6,7 @@
 
 
       <template v-if="user">
-        <el-menu-item index="6" @click="handleExit" class="right"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</el-menu-item>
+        <el-menu-item index="/" @click="handleExit" class="right"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</el-menu-item>
         <el-submenu index="5" class="right">
           <span slot="title"> {{ user.getUsername() }} </span>
           <el-menu-item index="/article?type=me">我的文章</el-menu-item>
@@ -15,7 +15,7 @@
           <el-menu-item index="/friend">朋友圈</el-menu-item>
           <el-menu-item index="/followee">我的关注</el-menu-item>
           <el-menu-item index="/follower">我的粉丝</el-menu-item>
-          <el-menu-item index="5-3">消息</el-menu-item>
+          <el-menu-item index="/message">消息</el-menu-item>
         </el-submenu>
       </template>
       <template v-else>
@@ -56,7 +56,7 @@ export default {
       this.exit() // 调用mapActions映射的this.exit()，这个方法映射自this.$store.dispatch('exit')`
       this.$api.SDK.User.logOut() // SDK 的退出
       this.$message.success('成功退出')
-      this.$router.replace('/article/?type=all')
+      // this.$router.replace('/article/?type=all')
     }
   },
 };

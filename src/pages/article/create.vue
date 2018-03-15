@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <h3 class="title is-3">发布一篇新的文章</h3>
-    <p>{{form.category}}</p>
     <el-form ref="form" :model="form" :rules="rules" label-width="80px" label-position="top">
       <el-form-item label="文章分类" prop="category">
         <el-select
@@ -154,7 +153,7 @@ export default {
           //发布失败
           console.dir(err);
         });
-        
+
         // 前端显示创建成功消息
         this.$message({message, type: 'success'})
         this.$router.replace('/article?type=all');

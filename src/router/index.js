@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import List from '@/pages/List'
+import List from '@/pages/list'
 import SignUp from '@/pages/signUp'
 import SignIn from '@/pages/signIn'
 import ArticleCreate from '@/pages/article/create'
-import ArticleList from '@/pages/List'
+import ArticleList from '@/pages/list'
 import ArticleShow from '@/pages/article/index'
 import ArticleEdit from '@/pages/article/edit'
 import User from '@/pages/user/index'
-import Followee from '@/pages/user/myFollowee'
-import Follower from '@/pages/user/myFollower'
+import Followee from '@/pages/user/followee'
+import Follower from '@/pages/user/follower'
 import Friend from '@/pages/user/friend'
+import Message from '@/pages/user/message'
 
 Vue.use(Router)
 
@@ -21,14 +22,6 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
-    },
-    {
-      path: '/article/create',
-      name: 'ArticleCreate',
-      component: ArticleCreate,
-      meta: {
-        needLogin: true
-      }
     },
     {
       path: '/signup',
@@ -46,17 +39,17 @@ export default new Router({
       component: ArticleList
     },
     {
-      path: '/article/:id',
-      name: 'ArticleShow',
-      component: ArticleShow
-    },
-    {
       path: '/article/create',
       name: 'ArticleCreate',
       component: ArticleCreate,
       meta: {
         needLogin: true
       }
+    },
+    {
+      path: '/article/:id',
+      name: 'ArticleShow',
+      component: ArticleShow
     },
     {
       path: '/article/:id/edit',
@@ -94,6 +87,14 @@ export default new Router({
       meta: {
         needLogin: true
       }
-    }
+    },
+    {
+      path: '/message',
+      nanme: 'Message',
+      component: Message,
+      meta: {
+       needLogin: true
+      }
+    },
   ]
 })

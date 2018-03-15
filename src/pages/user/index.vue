@@ -6,7 +6,19 @@
     <div class="oprator" v-if="user">
       <!-- 如果登录用户不等于当前的用户页面，则显示关注按钮 -->
       <button v-if="user.id != current_user.id" @click="toggleFollow">{{ followed? '取消关注':'关注' }}该用户</button>
+      <button v-if="user.id != current_user.id" @click="dialogFormVisible = true">发送私信</button>
     </div>
+    <el-dialog title="发送私信给该用户" :visible.sync="dialogFormVisible">
+      <el-form :model="form" ref="form" label-width="80px" label-position="top" :rules="rules">
+        <el-form-item label="私信内容" prop="msg">
+          <el-input type="textarea" v-model="form.msg"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary"  @click="sendMsg">确 定</el-button>
+      </div>
+    </el-dialog>
     <ul>
       <li v-for="article in articles" :key="article.id">
         <router-link :to="{ name: 'ArticleShow', params: {id: article.id} }">{{ article.get('title') }}</router-link>
@@ -26,10 +38,19 @@ export default {
   data () {
     const id = this.$route.params.id;
     return {
+      dialogFormVisible: false,
       current_user: null,
       articles: null,
       followed: false, //当前显示用户是否被登录用户关注
       id,
+      form: {
+        msg: ''
+      },
+      rules:{
+        msg: [
+          { required: true, message:'必填项', trigger: 'blur' },
+        ]
+      }
     };
   },
   computed: mapState(['user']),
@@ -87,6 +108,24 @@ export default {
         }
       }).catch(console.error)
 
+    },
+    sendMsg(){
+      if (!this.form.msg) {
+        this.$message.error("信息不能为空");
+        return;
+      }
+      const Status = this.$api.SDK.Status;
+      const status = new Status(null, this.form.msg);
+      status.set('from', this.user);
+      status.set('to', this.current_user);
+      Status.sendPrivateStatus(status, this.current_user.id).then((status) => {
+        if (status) {
+          this.dialogFormVisible = false;
+          this.$message({message:'发送私信成功！', type:'success'});
+        }
+      },(err) =>{
+        this.$message.error(err);
+      })
     }
   }
 
